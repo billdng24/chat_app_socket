@@ -8,7 +8,7 @@ const port = process.env.PORT;
 const httpServer = createServer();
 const io = new Server(httpServer, {
   cors: {
-    origin: "https://chat-app-fe-chi.vercel.app",
+    origin: "http://localhost:8000",
   },
 });
 
@@ -37,6 +37,11 @@ io.on("connection", (socket) => {
     const {} = response;
     const newResponse = {};
     io.emit("getRequest", newResponse);
+  })
+
+  socket.on("createRoom", (response) => {
+    const newResponse = response;
+    io.emit("getRoom", newResponse);
   })
 
   socket.on("disconnect", () => {
